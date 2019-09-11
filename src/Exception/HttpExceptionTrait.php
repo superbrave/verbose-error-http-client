@@ -32,18 +32,18 @@ trait HttpExceptionTrait
 
         $httpCodeFound = false;
         $isJson = false;
-        foreach (array_reverse($response->getInfo('response_headers')) as $h) {
-            if (0 === strpos($h, 'HTTP/')) {
+        foreach (array_reverse($response->getInfo('response_headers')) as $responseHeader) {
+            if (strpos($responseHeader, 'HTTP/') === 0) {
                 if ($httpCodeFound) {
                     break;
                 }
 
-                $message = sprintf('%s returned for "%s".', $h, $url);
+                $message = sprintf('%s returned for "%s".', $responseHeader, $url);
                 $httpCodeFound = true;
             }
 
-            if (0 === stripos($h, 'content-type:')) {
-                if (preg_match('/\bjson\b/i', $h)) {
+            if (stripos($responseHeader, 'content-type:') === 0) {
+                if (preg_match('/\bjson\b/i', $responseHeader)) {
                     $isJson = true;
                 }
 
