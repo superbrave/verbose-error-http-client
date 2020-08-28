@@ -22,6 +22,14 @@ build:
             - store-in-cache repository "dependencies" vendor/
 
     nodes:
+        tests-symfony-4.4:
+            dependencies:
+                override:
+                    - composer require symfony/http-client:^4.4 --dev
+            tests:
+                override:
+                    - ./vendor/bin/phpunit --coverage-clover=coverage-clover.xml
+
         tests:
             tests:
                 override:
