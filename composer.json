@@ -16,7 +16,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
         "phpunit/phpunit": "^8.3",
-        "symfony/http-client": "^4.3"
+        "symfony/http-client": "^4.4 || ^5.1"
     },
     "suggest": {
         "symfony/http-client": "This package requires an actual Symfony HTTP client implementation to decorate."
