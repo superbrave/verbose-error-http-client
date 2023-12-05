@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient;
 
 use Superbrave\VerboseErrorHttpClient\Response\VerboseErrorResponse;
+use Symfony\Component\HttpClient\HttpClientTrait;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;
@@ -11,27 +14,16 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
  * Decorates a Symfony HTTP client implementation with verbose exception messages.
  *
  * @author Niels Nijens <nn@superbrave.nl>
+ * @author Beau Ottens <bo@ehvg.nl>
  */
 class VerboseErrorHttpClient implements HttpClientInterface
 {
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
+    use HttpClientTrait;
 
-    /**
-     * Constructs a new VerboseErrorHttpClient instance.
-     *
-     * @param HttpClientInterface $httpClient
-     */
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(private readonly HttpClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function request(string $method, string $url, array $options = []): ResponseInterface
     {
         $response = $this->httpClient->request($method, $url, $options);
@@ -39,9 +31,6 @@ class VerboseErrorHttpClient implements HttpClientInterface
         return new VerboseErrorResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function stream($responses, float $timeout = null): ResponseStreamInterface
     {
         return $this->httpClient->stream($responses, $timeout);

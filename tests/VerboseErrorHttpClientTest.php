@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient\Tests;
 
-use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 use Superbrave\VerboseErrorHttpClient\Exception\ClientException;
 use Superbrave\VerboseErrorHttpClient\Exception\RedirectionException;
@@ -17,30 +18,22 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * Tests the @see VerboseErrorHttpClient class.
  *
  * @author Niels Nijens <nn@superbrave.nl>
+ * @author Beau Ottens <bo@ehvg.nl>
  */
 class VerboseErrorHttpClientTest extends TestCase
 {
-    /**
-     * @var VerboseErrorHttpClient
-     */
-    private $httpClient;
+    private VerboseErrorHttpClient $httpClient;
 
-    /**
-     * @var MockHttpClient
-     */
-    private $mockHttpClient;
+    private MockHttpClient $mockHttpClient;
 
-    /**
-     * @var MockResponse[]
-     */
-    private $mockResponses;
+    private \ArrayIterator|array $mockResponses;
 
     /**
      * Creates a new VerboseErrorHttpClient instance for testing.
      */
     protected function setUp(): void
     {
-        $this->mockResponses = new ArrayIterator();
+        $this->mockResponses = new \ArrayIterator();
         $this->mockHttpClient = new MockHttpClient($this->mockResponses);
 
         $this->httpClient = new VerboseErrorHttpClient($this->mockHttpClient);
@@ -48,9 +41,6 @@ class VerboseErrorHttpClientTest extends TestCase
 
     /**
      * @dataProvider provideServerExceptionResponses
-     *
-     * @param MockResponse $response
-     * @param string       $expectedExceptionMessage
      */
     public function testRequestThrowsServerException(MockResponse $response, string $expectedExceptionMessage): void
     {
@@ -65,9 +55,6 @@ class VerboseErrorHttpClientTest extends TestCase
 
     /**
      * @dataProvider provideClientExceptionResponses
-     *
-     * @param MockResponse $response
-     * @param string       $expectedExceptionMessage
      */
     public function testRequestThrowsClientException(MockResponse $response, string $expectedExceptionMessage): void
     {
@@ -82,9 +69,6 @@ class VerboseErrorHttpClientTest extends TestCase
 
     /**
      * @dataProvider provideRedirectionExceptionResponses
-     *
-     * @param MockResponse $response
-     * @param string       $expectedExceptionMessage
      */
     public function testRequestThrowsRedirectionException(
         MockResponse $response,
@@ -106,7 +90,7 @@ class VerboseErrorHttpClientTest extends TestCase
     public function testStream(): void
     {
         $mockResponse = new MockResponse('');
-        $expectedResponseStream = new ResponseStream(MockResponse::stream(array($mockResponse), null));
+        $expectedResponseStream = new ResponseStream(MockResponse::stream([$mockResponse], null));
 
         $httpClientMock = $this->getMockBuilder(HttpClientInterface::class)
             ->getMock();
@@ -122,135 +106,126 @@ class VerboseErrorHttpClientTest extends TestCase
         $this->assertSame($expectedResponseStream, $responseStream);
     }
 
-    /**
-     * @return array
-     */
-    public function provideServerExceptionResponses(): array
+    public static function provideServerExceptionResponses(): array
     {
-        return array(
-            array(
+        return [
+            [
                 new MockResponse(
                     '',
-                    array(
+                    [
                         'http_code' => 500,
-                    )
+                    ]
                 ),
                 'HTTP 500 returned for "https://superbrave.nl/".',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '<html><head><title>Internal Server Error</title></head><body><h1>Internal Server Error</h1></body></body></html>',
-                    array(
+                    [
                         'http_code' => 500,
-                    )
+                    ]
                 ),
                 'HTTP 500 returned for "https://superbrave.nl/" with response: <html><head><title>Internal Server Error</title></head><body><h1>Internal Server Error</h1></body></body></html>',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '<html><head><title>Internal Server Error</title></head><body><h1>Internal Server Error</h1><p>This is an unexpected error. Sorry!</p></body></body></html>',
-                    array(
+                    [
                         'http_code' => 500,
-                    )
+                    ]
                 ),
                 'HTTP 500 returned for "https://superbrave.nl/" with response: <html><head><title>Internal Server Error</title></head><body><h1>Internal Server Error</h1><p>This is an unexpected erro (truncated...)',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '{"message": "Internal Server Error."}',
-                    array(
+                    [
                         'http_code' => 500,
-                        'response_headers' => array(
+                        'response_headers' => [
                             'content-type' => 'application/json',
-                        ),
-                    )
+                        ],
+                    ]
                 ),
                 'HTTP 500 returned for "https://superbrave.nl/" with response: {"message": "Internal Server Error."}',
-            ),
-        );
+            ],
+        ];
     }
 
-    /**
-     * @return array
-     */
-    public function provideClientExceptionResponses(): array
+    public static function provideClientExceptionResponses(): array
     {
-        return array(
-            array(
+        return [
+            [
                 new MockResponse(
                     '',
-                    array(
+                    [
                         'http_code' => 400,
-                    )
+                    ]
                 ),
                 'HTTP 400 returned for "https://superbrave.nl/".',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '<html><head><title>Bad Request</title></head><body><h1>Bad Request</h1></body></body></html>',
-                    array(
+                    [
                         'http_code' => 400,
-                    )
+                    ]
                 ),
                 'HTTP 400 returned for "https://superbrave.nl/" with response: <html><head><title>Bad Request</title></head><body><h1>Bad Request</h1></body></body></html>',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '<html><head><title>Bad Request</title></head><body><h1>Bad Request</h1><p>Bad client! Bad! No naughty requests allowed.</p></body></body></html>',
-                    array(
+                    [
                         'http_code' => 400,
-                    )
+                    ]
                 ),
                 'HTTP 400 returned for "https://superbrave.nl/" with response: <html><head><title>Bad Request</title></head><body><h1>Bad Request</h1><p>Bad client! Bad! No naughty requests allowed.< (truncated...)',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '{"message": "Bad Request."}',
-                    array(
+                    [
                         'http_code' => 400,
-                        'response_headers' => array(
+                        'response_headers' => [
                             'content-type' => 'application/json',
-                        ),
-                    )
+                        ],
+                    ]
                 ),
                 'HTTP 400 returned for "https://superbrave.nl/" with response: {"message": "Bad Request."}',
-            ),
-        );
+            ],
+        ];
     }
 
-    /**
-     * @return array
-     */
-    public function provideRedirectionExceptionResponses(): array
+    public static function provideRedirectionExceptionResponses(): array
     {
-        return array(
-            array(
+        return [
+            [
                 new MockResponse(
                     '',
-                    array(
+                    [
                         'http_code' => 301,
-                    )
+                    ]
                 ),
                 'HTTP 301 returned for "https://superbrave.nl/".',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '<html><head><title>Redirected to: https://superbrave.nl/</title></head><body></body></body></html>',
-                    array(
+                    [
                         'http_code' => 301,
-                    )
+                    ]
                 ),
                 'HTTP 301 returned for "https://superbrave.nl/" with response: <html><head><title>Redirected to: https://superbrave.nl/</title></head><body></body></body></html>',
-            ),
-            array(
+            ],
+            [
                 new MockResponse(
                     '<html><head><title>Redirected to: https://superbrave.nl/</title></head><body><h1>Redirected to: https://superbrave.nl/</h1><p>We should have redirected you to another URL, but we did not...</p></body></body></html>',
-                    array(
+                    [
                         'http_code' => 301,
-                    )
+                    ]
                 ),
                 'HTTP 301 returned for "https://superbrave.nl/" with response: <html><head><title>Redirected to: https://superbrave.nl/</title></head><body><h1>Redirected to: https://superbrave.nl/</ (truncated...)',
-            ),
-        );
+            ],
+        ];
     }
 }

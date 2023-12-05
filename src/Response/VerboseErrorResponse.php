@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient\Response;
 
 use Superbrave\VerboseErrorHttpClient\Exception\ClientException;
@@ -14,43 +16,24 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * Wraps a response to be able to decorate the thrown exceptions.
  *
  * @author Niels Nijens <nn@superbrave.nl>
+ * @author Beau Ottens <bo@ehvg.nl>
  */
-class VerboseErrorResponse implements ResponseInterface
+readonly class VerboseErrorResponse implements ResponseInterface
 {
-    /**
-     * @var ResponseInterface
-     */
-    private $response;
-
-    /**
-     * Constructs a new VerboseResponse instance.
-     *
-     * @param ResponseInterface $response
-     */
-    public function __construct(ResponseInterface $response)
+    public function __construct(private ResponseInterface $response)
     {
-        $this->response = $response;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getStatusCode(): int
     {
         return $this->response->getStatusCode();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getInfo(string $type = null)
+    public function getInfo(string $type = null): mixed
     {
         return $this->response->getInfo($type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHeaders(bool $throw = true): array
     {
         try {
@@ -64,9 +47,6 @@ class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContent(bool $throw = true): string
     {
         try {
@@ -80,9 +60,6 @@ class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(bool $throw = true): array
     {
         try {
@@ -96,9 +73,6 @@ class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function cancel(): void
     {
         $this->response->cancel();

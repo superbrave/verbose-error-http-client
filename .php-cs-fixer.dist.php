@@ -1,13 +1,18 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+declare(strict_types=1);
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$finder = Finder::create()
     ->exclude('vendor')
     ->in(__DIR__);
 
-return PhpCsFixer\Config::create()
+return (new Config())
     ->setRules([
         '@Symfony' => true,
-        'yoda_style' => null, // Do not enforce Yoda style (add unit tests instead...)
+        'yoda_style' => [],
         'ordered_imports' => true,
     ])
     ->setFinder($finder);

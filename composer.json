@@ -10,13 +10,16 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "symfony/http-client-contracts": "^1.1 || ^2.0"
+        "php": "^8.2",
+        "symfony/http-client-contracts": "^3.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.15",
-        "phpunit/phpunit": "^8.3",
-        "symfony/http-client": "^4.4 || ^5.1"
+        "friendsofphp/php-cs-fixer": "^3.40",
+        "phpunit/phpunit": "^10.5",
+        "symfony/http-client": "^7.0"
+    },
+    "scripts": {
+        "fix-code-style": "vendor/bin/php-cs-fixer fix"
     },
     "suggest": {
         "symfony/http-client": "This package requires an actual Symfony HTTP client implementation to decorate."

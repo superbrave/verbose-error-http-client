@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient\Exception;
 
-use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
 /**
@@ -10,7 +11,7 @@ use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
  *
  * @author Niels Nijens <nn@superbrave.nl>
  */
-final class ClientException extends RuntimeException implements ClientExceptionInterface
+final class ClientException extends \RuntimeException implements ClientExceptionInterface
 {
     use HttpExceptionTrait;
 }
