@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Superbrave\VerboseErrorHttpClient\Exception;
 
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use Throwable;
 
 /**
  * @author Niels Nijens <nn@superbrave.nl>
@@ -15,7 +16,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 trait HttpExceptionTrait
 {
-    public function __construct(private readonly ResponseInterface $response, \Throwable $previousException)
+    public function __construct(private readonly ResponseInterface $response, Throwable $previousException)
     {
         $code = $response->getInfo('http_code');
         $url = $response->getInfo('url');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Superbrave\VerboseErrorHttpClient\Exception;
 
+use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 
 /**
@@ -11,7 +12,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
  *
  * @author Niels Nijens <nn@superbrave.nl>
  */
-final class RedirectionException extends \RuntimeException implements RedirectionExceptionInterface
+final class RedirectionException extends RuntimeException implements RedirectionExceptionInterface
 {
     use HttpExceptionTrait;
 }

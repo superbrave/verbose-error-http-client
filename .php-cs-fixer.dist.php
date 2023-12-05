@@ -14,5 +14,8 @@ return (new Config())
         '@Symfony' => true,
         'yoda_style' => [],
         'ordered_imports' => true,
+        'global_namespace_import' => [
+            'import_classes' => true,
+        ],
     ])
     ->setFinder($finder);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Superbrave\VerboseErrorHttpClient\Tests;
 
+use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 use Superbrave\VerboseErrorHttpClient\Exception\ClientException;
 use Superbrave\VerboseErrorHttpClient\Exception\RedirectionException;
@@ -26,14 +27,14 @@ class VerboseErrorHttpClientTest extends TestCase
 
     private MockHttpClient $mockHttpClient;
 
-    private \ArrayIterator|array $mockResponses;
+    private ArrayIterator|array $mockResponses;
 
     /**
      * Creates a new VerboseErrorHttpClient instance for testing.
      */
     protected function setUp(): void
     {
-        $this->mockResponses = new \ArrayIterator();
+        $this->mockResponses = new ArrayIterator();
         $this->mockHttpClient = new MockHttpClient($this->mockResponses);
 
         $this->httpClient = new VerboseErrorHttpClient($this->mockHttpClient);
