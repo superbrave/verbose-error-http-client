@@ -15,12 +15,6 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpClient\Response\ResponseStream;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-/**
- * Tests the @see VerboseErrorHttpClient class.
- *
- * @author Niels Nijens <nn@superbrave.nl>
- * @author Beau Ottens <bo@ehvg.nl>
- */
 class VerboseErrorHttpClientTest extends TestCase
 {
     private VerboseErrorHttpClient $httpClient;

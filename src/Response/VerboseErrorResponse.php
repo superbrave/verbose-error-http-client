@@ -14,9 +14,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Wraps a response to be able to decorate the thrown exceptions.
- *
- * @author Niels Nijens <nn@superbrave.nl>
- * @author Beau Ottens <bo@ehvg.nl>
  */
 readonly class VerboseErrorResponse implements ResponseInterface
 {

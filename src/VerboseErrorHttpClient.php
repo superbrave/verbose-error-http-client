@@ -12,9 +12,6 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Decorates a Symfony HTTP client implementation with verbose exception messages.
- *
- * @author Niels Nijens <nn@superbrave.nl>
- * @author Beau Ottens <bo@ehvg.nl>
  */
 class VerboseErrorHttpClient implements HttpClientInterface
 {

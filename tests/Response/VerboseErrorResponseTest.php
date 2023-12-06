@@ -17,10 +17,6 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * @author Niels Nijens <nn@superbrave.nl>
- * @author Beau Ottens <bo@ehvg.nl>
- */
 class VerboseErrorResponseTest extends TestCase
 {
     private VerboseErrorResponse $response;

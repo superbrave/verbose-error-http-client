@@ -8,10 +8,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 use Throwable;
 
 /**
- * @author Niels Nijens <nn@superbrave.nl>
- * @author Beau Ottens <bo@ehvg.nl>
- * @author Nicolas Grekas <p@tchwork.com>
- *
  * @internal
  */
 trait HttpExceptionTrait
