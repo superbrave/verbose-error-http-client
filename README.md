@@ -2,9 +2,6 @@
 
 [![Latest version on Packagist][ico-version]][link-version]
 [![Software License][ico-license]][link-license]
-[![Build Status][ico-build]][link-build]
-[![Coverage Status][ico-coverage]][link-coverage]
-[![Code Quality][ico-code-quality]][link-code-quality]
 
 Increased verbosity of error messages in the Symfony HTTP client.
 
@@ -32,17 +29,10 @@ $response = $verboseErrorHttpClient->request('GET', 'https://superbrave.nl/api')
 ```
 
 ## License
-The Verbose error HTTP client is licensed under the MIT License. Please see the [LICENSE file][link-license]
-for details.
+The Verbose error HTTP client is licensed under the MIT License. Please see the [LICENSE file][link-license] for details.
 
 [ico-version]: https://img.shields.io/packagist/v/superbrave/verbose-error-http-client
 [ico-license]: https://img.shields.io/packagist/l/superbrave/verbose-error-http-client
-[ico-build]: https://scrutinizer-ci.com/g/superbrave/verbose-error-http-client/badges/build.png?b=master
-[ico-coverage]: https://scrutinizer-ci.com/g/superbrave/verbose-error-http-client/badges/coverage.png?b=master
-[ico-code-quality]: https://scrutinizer-ci.com/g/superbrave/verbose-error-http-client/badges/quality-score.png?b=master
 
 [link-version]: https://packagist.org/packages/superbrave/verbose-error-http-client
 [link-license]: LICENSE
-[link-build]: https://scrutinizer-ci.com/g/superbrave/verbose-error-http-client/build-status/master
-[link-coverage]: https://scrutinizer-ci.com/g/superbrave/verbose-error-http-client/build-status/master
-[link-code-quality]: https://scrutinizer-ci.com/g/superbrave/verbose-error-http-client/build-status/master
