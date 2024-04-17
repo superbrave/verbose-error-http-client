@@ -15,22 +15,11 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * Tests the @see VerboseErrorResponse class.
- *
- * @author Niels Nijens <nn@superbrave.nl>
- */
-class VerboseErrorResponseTest extends TestCase
+final class VerboseErrorResponseTest extends TestCase
 {
-    /**
-     * @var VerboseErrorResponse
-     */
-    private $response;
+    private VerboseErrorResponse $response;
 
-    /**
-     * @var MockObject
-     */
-    private $wrappedResponseMock;
+    private ResponseInterface&MockObject $wrappedResponseMock;
 
     /**
      * Creates a new VerboseErrorResponse instance for testing.
@@ -73,12 +62,6 @@ class VerboseErrorResponseTest extends TestCase
      * wraps/decorates thrown errors.
      *
      * @dataProvider provideExceptionTestCases
-     *
-     * @param bool                        $throw
-     * @param HttpExceptionInterface|null $exception
-     * @param int                         $httpCode
-     * @param string|null                 $expectedExceptionClass
-     * @param string|null                 $expectedExceptionMessage
      */
     public function testGetHeaders(
         bool $throw,
@@ -121,12 +104,6 @@ class VerboseErrorResponseTest extends TestCase
      * wraps/decorates thrown errors.
      *
      * @dataProvider provideExceptionTestCases
-     *
-     * @param bool                        $throw
-     * @param HttpExceptionInterface|null $exception
-     * @param int                         $httpCode
-     * @param string|null                 $expectedExceptionClass
-     * @param string|null                 $expectedExceptionMessage
      */
     public function testGetContent(
         bool $throw,
@@ -178,12 +155,6 @@ class VerboseErrorResponseTest extends TestCase
      * wraps/decorates thrown errors.
      *
      * @dataProvider provideExceptionTestCases
-     *
-     * @param bool                        $throw
-     * @param HttpExceptionInterface|null $exception
-     * @param int                         $httpCode
-     * @param string|null                 $expectedExceptionClass
-     * @param string|null                 $expectedExceptionMessage
      */
     public function testToArray(
         bool $throw,
@@ -232,12 +203,7 @@ class VerboseErrorResponseTest extends TestCase
         $this->response->cancel();
     }
 
-    /**
-     * Returns the exception test cases.
-     *
-     * @return array
-     */
-    public function provideExceptionTestCases(): array
+    public static function provideExceptionTestCases(): array
     {
         $response = new MockResponse(
             '',

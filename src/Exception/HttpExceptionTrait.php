@@ -13,19 +13,8 @@ use Throwable;
  */
 trait HttpExceptionTrait
 {
-    /**
-     * @var ResponseInterface
-     */
-    private $response;
-
-    /**
-     * @param ResponseInterface $response
-     * @param Throwable         $previousException
-     */
-    public function __construct(ResponseInterface $response, Throwable $previousException)
+    public function __construct(private readonly ResponseInterface $response, Throwable $previousException)
     {
-        $this->response = $response;
-
         $code = $response->getInfo('http_code');
         $url = $response->getInfo('url');
         $message = sprintf('HTTP %d returned for "%s".', $code, $url);
@@ -33,7 +22,7 @@ trait HttpExceptionTrait
         $httpCodeFound = false;
         $isJson = false;
         foreach (array_reverse($response->getInfo('response_headers')) as $responseHeader) {
-            if (strpos($responseHeader, 'HTTP/') === 0) {
+            if (str_starts_with($responseHeader, 'HTTP/')) {
                 if ($httpCodeFound) {
                     break;
                 }
@@ -69,13 +58,6 @@ trait HttpExceptionTrait
         return $this->response;
     }
 
-    /**
-     * Returns a summary of the response content.
-     *
-     * @param bool $json
-     *
-     * @return string
-     */
     private function getResponseContentSummary(bool $json): string
     {
         $content = $this->response->getContent(false);

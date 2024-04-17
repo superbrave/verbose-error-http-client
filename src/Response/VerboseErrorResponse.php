@@ -15,21 +15,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  * @author Niels Nijens <nn@superbrave.nl>
  */
-class VerboseErrorResponse implements ResponseInterface
+readonly class VerboseErrorResponse implements ResponseInterface
 {
-    /**
-     * @var ResponseInterface
-     */
-    private $response;
-
-    /**
-     * Constructs a new VerboseResponse instance.
-     *
-     * @param ResponseInterface $response
-     */
-    public function __construct(ResponseInterface $response)
+    public function __construct(private ResponseInterface $response)
     {
-        $this->response = $response;
     }
 
     /**
@@ -43,7 +32,7 @@ class VerboseErrorResponse implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function getInfo(string $type = null)
+    public function getInfo(string $type = null): mixed
     {
         return $this->response->getInfo($type);
     }

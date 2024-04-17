@@ -14,19 +14,8 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
  */
 class VerboseErrorHttpClient implements HttpClientInterface
 {
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
-
-    /**
-     * Constructs a new VerboseErrorHttpClient instance.
-     *
-     * @param HttpClientInterface $httpClient
-     */
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(protected HttpClientInterface $client)
     {
-        $this->httpClient = $httpClient;
     }
 
     /**
@@ -34,7 +23,7 @@ class VerboseErrorHttpClient implements HttpClientInterface
      */
     public function request(string $method, string $url, array $options = []): ResponseInterface
     {
-        $response = $this->httpClient->request($method, $url, $options);
+        $response = $this->client->request($method, $url, $options);
 
         return new VerboseErrorResponse($response);
     }
@@ -44,6 +33,14 @@ class VerboseErrorHttpClient implements HttpClientInterface
      */
     public function stream($responses, float $timeout = null): ResponseStreamInterface
     {
-        return $this->httpClient->stream($responses, $timeout);
+        return $this->client->stream($responses, $timeout);
+    }
+
+    public function withOptions(array $options): static
+    {
+        $clone = clone $this;
+        $clone->client = $this->client->withOptions($options);
+
+        return $clone;
     }
 }

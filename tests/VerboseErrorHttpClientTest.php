@@ -18,22 +18,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  *
  * @author Niels Nijens <nn@superbrave.nl>
  */
-class VerboseErrorHttpClientTest extends TestCase
+final class VerboseErrorHttpClientTest extends TestCase
 {
-    /**
-     * @var VerboseErrorHttpClient
-     */
-    private $httpClient;
+    private VerboseErrorHttpClient $httpClient;
 
-    /**
-     * @var MockHttpClient
-     */
-    private $mockHttpClient;
-
-    /**
-     * @var MockResponse[]
-     */
-    private $mockResponses;
+    private ArrayIterator $mockResponses;
 
     /**
      * Creates a new VerboseErrorHttpClient instance for testing.
@@ -41,16 +30,13 @@ class VerboseErrorHttpClientTest extends TestCase
     protected function setUp(): void
     {
         $this->mockResponses = new ArrayIterator();
-        $this->mockHttpClient = new MockHttpClient($this->mockResponses);
+        $mockHttpClient = new MockHttpClient($this->mockResponses);
 
-        $this->httpClient = new VerboseErrorHttpClient($this->mockHttpClient);
+        $this->httpClient = new VerboseErrorHttpClient($mockHttpClient);
     }
 
     /**
      * @dataProvider provideServerExceptionResponses
-     *
-     * @param MockResponse $response
-     * @param string       $expectedExceptionMessage
      */
     public function testRequestThrowsServerException(MockResponse $response, string $expectedExceptionMessage): void
     {
@@ -65,9 +51,6 @@ class VerboseErrorHttpClientTest extends TestCase
 
     /**
      * @dataProvider provideClientExceptionResponses
-     *
-     * @param MockResponse $response
-     * @param string       $expectedExceptionMessage
      */
     public function testRequestThrowsClientException(MockResponse $response, string $expectedExceptionMessage): void
     {
@@ -82,9 +65,6 @@ class VerboseErrorHttpClientTest extends TestCase
 
     /**
      * @dataProvider provideRedirectionExceptionResponses
-     *
-     * @param MockResponse $response
-     * @param string       $expectedExceptionMessage
      */
     public function testRequestThrowsRedirectionException(
         MockResponse $response,

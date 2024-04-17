@@ -10,13 +10,14 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "symfony/http-client-contracts": "^1.1 || ^2.0"
+        "php": "^8.2",
+        "symfony/http-client-contracts": "^3.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.15",
-        "phpunit/phpunit": "^8.3",
-        "symfony/http-client": "^4.4 || ^5.1"
+        "friendsofphp/php-cs-fixer": "^3.54",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6",
+        "symfony/http-client": "^6.4|^7.0"
     },
     "suggest": {
         "symfony/http-client": "This package requires an actual Symfony HTTP client implementation to decorate."
@@ -36,5 +37,11 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "check-phpstan": "vendor/bin/phpstan analyse",
+        "check-code-style": "vendor/bin/php-cs-fixer fix --dry-run -v",
+        "fix-code-style": "vendor/bin/php-cs-fixer fix",
+        "test": "phpunit"
     }
 }
