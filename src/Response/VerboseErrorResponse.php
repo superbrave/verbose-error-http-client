@@ -21,25 +21,16 @@ readonly class VerboseErrorResponse implements ResponseInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getStatusCode(): int
     {
         return $this->response->getStatusCode();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getInfo(string $type = null): mixed
+    public function getInfo(?string $type = null): mixed
     {
         return $this->response->getInfo($type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHeaders(bool $throw = true): array
     {
         try {
@@ -53,9 +44,6 @@ readonly class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContent(bool $throw = true): string
     {
         try {
@@ -69,9 +57,6 @@ readonly class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(bool $throw = true): array
     {
         try {
@@ -85,9 +70,6 @@ readonly class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function cancel(): void
     {
         $this->response->cancel();

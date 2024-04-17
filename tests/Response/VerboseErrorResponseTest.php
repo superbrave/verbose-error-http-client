@@ -73,20 +73,20 @@ final class VerboseErrorResponseTest extends TestCase
         $method = $this->wrappedResponseMock->expects($this->once())
             ->method('getHeaders')
             ->with($throw)
-            ->willReturn(array());
+            ->willReturn([]);
 
         if ($exception !== null) {
             $this->wrappedResponseMock->expects($this->exactly(3))
                 ->method('getInfo')
                 ->withConsecutive(
-                    array('http_code'),
-                    array('url'),
-                    array('response_headers')
+                    ['http_code'],
+                    ['url'],
+                    ['response_headers']
                 )
                 ->willReturnOnConsecutiveCalls(
                     $httpCode,
                     'http://superbrave.nl',
-                    array()
+                    []
                 );
 
             $method->willThrowException($exception);
@@ -115,8 +115,8 @@ final class VerboseErrorResponseTest extends TestCase
         $method = $this->wrappedResponseMock->expects($this->atLeastOnce())
             ->method('getContent')
             ->withConsecutive(
-                array($throw),
-                array(false)
+                [$throw],
+                [false]
             )
             ->willReturn('');
 
@@ -124,14 +124,14 @@ final class VerboseErrorResponseTest extends TestCase
             $this->wrappedResponseMock->expects($this->exactly(3))
                 ->method('getInfo')
                 ->withConsecutive(
-                    array('http_code'),
-                    array('url'),
-                    array('response_headers')
+                    ['http_code'],
+                    ['url'],
+                    ['response_headers']
                 )
                 ->willReturnOnConsecutiveCalls(
                     $httpCode,
                     'http://superbrave.nl',
-                    array()
+                    []
                 );
 
             $method->willReturnCallback(function ($throw) use ($exception) {
@@ -166,20 +166,20 @@ final class VerboseErrorResponseTest extends TestCase
         $method = $this->wrappedResponseMock->expects($this->once())
             ->method('toArray')
             ->with($throw)
-            ->willReturn(array());
+            ->willReturn([]);
 
         if ($exception !== null) {
             $this->wrappedResponseMock->expects($this->exactly(3))
                 ->method('getInfo')
                 ->withConsecutive(
-                    array('http_code'),
-                    array('url'),
-                    array('response_headers')
+                    ['http_code'],
+                    ['url'],
+                    ['response_headers']
                 )
                 ->willReturnOnConsecutiveCalls(
                     $httpCode,
                     'http://superbrave.nl',
-                    array()
+                    []
                 );
 
             $method->willThrowException($exception);
@@ -207,42 +207,42 @@ final class VerboseErrorResponseTest extends TestCase
     {
         $response = new MockResponse(
             '',
-            array(
-                'response_headers' => array(
+            [
+                'response_headers' => [
                     'content-type' => 'text/html',
-                ),
-            )
+                ],
+            ]
         );
 
-        return array(
-            array(
+        return [
+            [
                 true,
                 new SymfonyServerException($response),
                 500,
                 ServerException::class,
                 'HTTP 500 returned for "http://superbrave.nl".',
-            ),
-            array(
+            ],
+            [
                 true,
                 new SymfonyClientException($response),
                 400,
                 ClientException::class,
                 'HTTP 400 returned for "http://superbrave.nl".',
-            ),
-            array(
+            ],
+            [
                 true,
                 new SymfonyRedirectionException($response),
                 301,
                 RedirectionException::class,
                 'HTTP 301 returned for "http://superbrave.nl".',
-            ),
-            array(
+            ],
+            [
                 false,
                 null,
                 0,
                 null,
                 null,
-            ),
-        );
+            ],
+        ];
     }
 }

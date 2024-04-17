@@ -18,9 +18,6 @@ class VerboseErrorHttpClient implements HttpClientInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function request(string $method, string $url, array $options = []): ResponseInterface
     {
         $response = $this->client->request($method, $url, $options);
@@ -28,10 +25,7 @@ class VerboseErrorHttpClient implements HttpClientInterface
         return new VerboseErrorResponse($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function stream($responses, float $timeout = null): ResponseStreamInterface
+    public function stream($responses, ?float $timeout = null): ResponseStreamInterface
     {
         return $this->client->stream($responses, $timeout);
     }

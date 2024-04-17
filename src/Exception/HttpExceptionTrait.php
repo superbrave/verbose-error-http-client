@@ -50,9 +50,6 @@ trait HttpExceptionTrait
         parent::__construct($message, $code, $previousException);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResponse(): ResponseInterface
     {
         return $this->response;
