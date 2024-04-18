@@ -24,6 +24,7 @@ return (new Config())
             'import_classes' => true,
         ],
         'phpdoc_separation' => false,
+        'phpdoc_align' => false,
         'multiline_whitespace_before_semicolons' => true,
         'trailing_comma_in_multiline' => [
             'elements' => [

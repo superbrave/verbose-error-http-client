@@ -1,7 +1,7 @@
 {
-    "name": "superbrave/verbose-error-http-client",
+    "name": "superbrave/verbose-error-http-client-bundle",
     "description": "Increased verbosity of error messages in the Symfony HTTP client.",
-    "type": "library",
+    "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
@@ -12,9 +12,11 @@
     "require": {
         "php": "^8.2",
         "symfony/http-client-contracts": "^3.4",
-        "symfony/dependency-injection": "^6.4|^7.0"
+        "symfony/dependency-injection": "^6.4|^7.0",
+        "symfony/framework-bundle": "^6.4|^7.0"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "friendsofphp/php-cs-fixer": "^3.54",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.6",
@@ -28,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Superbrave\\VerboseErrorHttpClient\\": "src/"
+            "Superbrave\\VerboseErrorHttpClientBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Superbrave\\VerboseErrorHttpClient\\Tests\\": "tests/"
+            "Superbrave\\VerboseErrorHttpClientBundle\\Tests\\": "tests/"
         }
     },
     "config": {

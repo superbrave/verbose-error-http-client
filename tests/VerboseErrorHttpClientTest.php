@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Superbrave\VerboseErrorHttpClient\Tests;
+namespace Superbrave\VerboseErrorHttpClientBundle\Tests;
 
 use ArrayIterator;
 use PHPUnit\Framework\TestCase;
-use Superbrave\VerboseErrorHttpClient\Exception\ClientException;
-use Superbrave\VerboseErrorHttpClient\Exception\RedirectionException;
-use Superbrave\VerboseErrorHttpClient\Exception\ServerException;
-use Superbrave\VerboseErrorHttpClient\VerboseErrorHttpClient;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ClientException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\RedirectionException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ServerException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\VerboseErrorHttpClient;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpClient\Response\ResponseStream;

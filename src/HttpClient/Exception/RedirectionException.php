@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Superbrave\VerboseErrorHttpClient\Exception;
+namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception;
 
 use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;

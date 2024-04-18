@@ -1,4 +1,4 @@
-# Verbose error HTTP client
+# Verbose error HTTP client bundle
 
 [![Latest version on Packagist][ico-version]][link-version]
 [![Software License][ico-license]][link-license]
@@ -9,18 +9,18 @@ Increased verbosity of error messages in the Symfony HTTP client.
 Run the following command to add the package to the composer.json of your project:
 
 ``` bash
-$ composer require superbrave/verbose-error-http-client symfony/http-client
+$ composer require superbrave/verbose-error-http-client-bundle symfony/http-client
 ```
 
 The `symfony/http-client` can be replaced with any other HTTP client implementing the Symfony HTTP client contracts.
 
 ## Usage
 The following example shows how to create the instances required execute requests with verbose exception messages:
+
 ```php
 <?php
 
-use Superbrave\VerboseErrorHttpClient\VerboseErrorHttpClient;
-use Symfony\Component\HttpClient\HttpClient;
+use Superbrave\VerboseErrorHttpClient\HttpClient\VerboseErrorHttpClient;use Symfony\Component\HttpClient\HttpClient;
 
 $httpClient = HttpClient::create();
 $verboseErrorHttpClient = new VerboseErrorHttpClient($httpClient);

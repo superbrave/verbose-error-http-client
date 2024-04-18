@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Superbrave\VerboseErrorHttpClient;
+namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient;
 
-use Superbrave\VerboseErrorHttpClient\Response\VerboseErrorResponse;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Response\VerboseErrorResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;

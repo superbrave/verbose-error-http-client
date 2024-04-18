@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Superbrave\VerboseErrorHttpClient\Response;
+namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient\Response;
 
-use Superbrave\VerboseErrorHttpClient\Exception\ClientException;
-use Superbrave\VerboseErrorHttpClient\Exception\RedirectionException;
-use Superbrave\VerboseErrorHttpClient\Exception\ServerException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ClientException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\RedirectionException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ServerException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
