@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient\Response;
 
+use Generator;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ClientException;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\RedirectionException;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ServerException;
+use Symfony\Contracts\HttpClient\ChunkInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -75,5 +78,19 @@ readonly class VerboseErrorResponse implements ResponseInterface
     public function cancel(): void
     {
         $this->response->cancel();
+    }
+
+    /**
+     * @internal
+     *
+     * @param iterable<VerboseErrorResponse> $responses
+     *
+     * @return Generator<VerboseErrorResponse, ChunkInterface>
+     */
+    public static function stream(HttpClientInterface $client, iterable $responses, ?float $timeout): Generator
+    {
+        foreach ($responses as $response) {
+            yield $response => $client->stream($response->response, $timeout);
+        }
     }
 }
