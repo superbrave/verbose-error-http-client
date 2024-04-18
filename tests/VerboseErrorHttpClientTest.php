@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient\Tests;
 
 use ArrayIterator;
@@ -68,7 +70,7 @@ final class VerboseErrorHttpClientTest extends TestCase
      */
     public function testRequestThrowsRedirectionException(
         MockResponse $response,
-        string $expectedExceptionMessage
+        string $expectedExceptionMessage,
     ): void {
         $this->mockResponses[] = $response;
 

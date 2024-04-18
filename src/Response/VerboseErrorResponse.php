@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient\Response;
 
 use Superbrave\VerboseErrorHttpClient\Exception\ClientException;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Superbrave\VerboseErrorHttpClient\Tests\Response;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -68,7 +70,7 @@ final class VerboseErrorResponseTest extends TestCase
         ?HttpExceptionInterface $exception,
         int $httpCode,
         ?string $expectedExceptionClass,
-        ?string $expectedExceptionMessage
+        ?string $expectedExceptionMessage,
     ): void {
         $method = $this->wrappedResponseMock->expects($this->once())
             ->method('getHeaders')
@@ -110,7 +112,7 @@ final class VerboseErrorResponseTest extends TestCase
         ?HttpExceptionInterface $exception,
         int $httpCode,
         ?string $expectedExceptionClass,
-        ?string $expectedExceptionMessage
+        ?string $expectedExceptionMessage,
     ): void {
         $method = $this->wrappedResponseMock->expects($this->atLeastOnce())
             ->method('getContent')
@@ -161,7 +163,7 @@ final class VerboseErrorResponseTest extends TestCase
         ?HttpExceptionInterface $exception,
         int $httpCode,
         ?string $expectedExceptionClass,
-        ?string $expectedExceptionMessage
+        ?string $expectedExceptionMessage,
     ): void {
         $method = $this->wrappedResponseMock->expects($this->once())
             ->method('toArray')
