@@ -8,12 +8,12 @@ use Generator;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ClientException;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\RedirectionException;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ServerException;
-use Symfony\Contracts\HttpClient\ChunkInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Wraps a response to be able to decorate the thrown exceptions.
@@ -85,7 +85,7 @@ readonly class VerboseErrorResponse implements ResponseInterface
      *
      * @param iterable<VerboseErrorResponse> $responses
      *
-     * @return Generator<VerboseErrorResponse, ChunkInterface>
+     * @return Generator<VerboseErrorResponse, ResponseStreamInterface>
      */
     public static function stream(HttpClientInterface $client, iterable $responses, ?float $timeout): Generator
     {

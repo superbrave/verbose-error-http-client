@@ -28,7 +28,10 @@ class VerboseErrorHttpClient implements HttpClientInterface
         return new VerboseErrorResponse($response);
     }
 
-    public function stream($responses, ?float $timeout = null): ResponseStreamInterface
+    /**
+     * @param VerboseErrorResponse|iterable $responses
+     */
+    public function stream(ResponseInterface|iterable $responses, ?float $timeout = null): ResponseStreamInterface
     {
         if ($responses instanceof VerboseErrorResponse) {
             $responses = [$responses];
