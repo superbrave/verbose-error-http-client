@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ClientException;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\RedirectionException;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ServerException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Response\VerboseErrorResponse;
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\VerboseErrorHttpClient;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -82,26 +83,35 @@ final class VerboseErrorHttpClientTest extends TestCase
     }
 
     /**
-     * Tests if VerboseErrorHttpClient::stream only calls the stream method on
-     * the underlying/decorated HTTP client.
+     * Tests if {@see VerboseErrorHttpClient::stream()} only calls the stream method on
+     * the underlying/decorated HTTP client with the underlying response and that it returns a {@see ResponseStream}.
      */
     public function testStream(): void
     {
+        // Arrange
         $mockResponse = new MockResponse('');
+
+        $verboseErrorResponse = new VerboseErrorResponse($mockResponse);
+
         $expectedResponseStream = new ResponseStream(MockResponse::stream([$mockResponse], null));
 
-        $httpClientMock = $this->getMockBuilder(HttpClientInterface::class)
-            ->getMock();
+        $httpClientMock = $this->createMock(HttpClientInterface::class);
+
+        $verboseErrorHttpClient = new VerboseErrorHttpClient($httpClientMock);
+
+        // Act
+        $responseStream = $verboseErrorHttpClient->stream($verboseErrorResponse);
+
+        // Assert
+        $this->assertEquals($expectedResponseStream, $responseStream);
+
+        // Assert (2)
         $httpClientMock->expects($this->once())
             ->method('stream')
-            ->with($mockResponse, null)
-            ->willReturn($expectedResponseStream);
+            ->with($mockResponse, null);
 
-        $httpClient = new VerboseErrorHttpClient($httpClientMock);
-
-        $responseStream = $httpClient->stream($mockResponse);
-
-        $this->assertSame($expectedResponseStream, $responseStream);
+        // Act (2)
+        $responseStream->next();
     }
 
     public function provideServerExceptionResponses(): array
