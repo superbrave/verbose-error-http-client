@@ -1,10 +1,12 @@
 <?php
 
-namespace Superbrave\VerboseErrorHttpClient\Response;
+declare(strict_types=1);
 
-use Superbrave\VerboseErrorHttpClient\Exception\ClientException;
-use Superbrave\VerboseErrorHttpClient\Exception\RedirectionException;
-use Superbrave\VerboseErrorHttpClient\Exception\ServerException;
+namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient\Response;
+
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ClientException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\RedirectionException;
+use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception\ServerException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -15,42 +17,22 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  * @author Niels Nijens <nn@superbrave.nl>
  */
-class VerboseErrorResponse implements ResponseInterface
+readonly class VerboseErrorResponse implements ResponseInterface
 {
-    /**
-     * @var ResponseInterface
-     */
-    private $response;
-
-    /**
-     * Constructs a new VerboseResponse instance.
-     *
-     * @param ResponseInterface $response
-     */
-    public function __construct(ResponseInterface $response)
+    public function __construct(private ResponseInterface $response)
     {
-        $this->response = $response;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getStatusCode(): int
     {
         return $this->response->getStatusCode();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getInfo(string $type = null)
+    public function getInfo(?string $type = null): mixed
     {
         return $this->response->getInfo($type);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHeaders(bool $throw = true): array
     {
         try {
@@ -64,9 +46,6 @@ class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContent(bool $throw = true): string
     {
         try {
@@ -80,9 +59,6 @@ class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(bool $throw = true): array
     {
         try {
@@ -96,9 +72,6 @@ class VerboseErrorResponse implements ResponseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function cancel(): void
     {
         $this->response->cancel();

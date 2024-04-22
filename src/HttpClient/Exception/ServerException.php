@@ -1,6 +1,8 @@
 <?php
 
-namespace Superbrave\VerboseErrorHttpClient\Exception;
+declare(strict_types=1);
+
+namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient\Exception;
 
 use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
