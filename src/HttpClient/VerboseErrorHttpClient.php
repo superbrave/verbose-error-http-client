@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Superbrave\VerboseErrorHttpClientBundle\HttpClient;
 
 use Superbrave\VerboseErrorHttpClientBundle\HttpClient\Response\VerboseErrorResponse;
+use Symfony\Component\HttpClient\Response\ResponseStream;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;
@@ -27,9 +28,16 @@ class VerboseErrorHttpClient implements HttpClientInterface
         return new VerboseErrorResponse($response);
     }
 
-    public function stream($responses, ?float $timeout = null): ResponseStreamInterface
+    /**
+     * @param VerboseErrorResponse|iterable $responses
+     */
+    public function stream(ResponseInterface|iterable $responses, ?float $timeout = null): ResponseStreamInterface
     {
-        return $this->client->stream($responses, $timeout);
+        if ($responses instanceof VerboseErrorResponse) {
+            $responses = [$responses];
+        }
+
+        return new ResponseStream(VerboseErrorResponse::stream($this->client, $responses, $timeout));
     }
 
     public function withOptions(array $options): static
