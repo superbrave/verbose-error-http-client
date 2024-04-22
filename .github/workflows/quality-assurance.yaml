@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - '*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-qa-test:
+    name: Run Quality Assurance Tests
+    if: "!contains(github.ref, 'main') && !contains(github.ref, 'refs/tags/')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: colpal/actions-clean@v1
+      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: |
+          composer install --no-interaction --optimize-autoloader
+          wget https://get.symfony.com/cli/installer -O - | bash
