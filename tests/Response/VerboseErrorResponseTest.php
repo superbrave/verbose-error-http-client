@@ -15,6 +15,7 @@ use Symfony\Component\HttpClient\Exception\RedirectionException as SymfonyRedire
 use Symfony\Component\HttpClient\Exception\ServerException as SymfonyServerException;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class VerboseErrorResponseTest extends TestCase
@@ -203,6 +204,25 @@ final class VerboseErrorResponseTest extends TestCase
             ->method('cancel');
 
         $this->response->cancel();
+    }
+
+    public function testStreamCallsInnerHttpClientStreamWithInnerResponse(): void
+    {
+        // Arrange
+        $timeout = 50.5;
+        $innerHttpClientMock = $this->createMock(HttpClientInterface::class);
+
+        $innerResponseMock = $this->createMock(ResponseInterface::class);
+        $verboseErrorResponse = new VerboseErrorResponse($innerResponseMock);
+
+        // Assert
+        $innerHttpClientMock->expects(self::once())
+            ->method('stream')
+            ->with($innerResponseMock, $timeout);
+
+        // Act
+        $stream = VerboseErrorResponse::stream($innerHttpClientMock, [$verboseErrorResponse], $timeout);
+        $stream->next();
     }
 
     public static function provideExceptionTestCases(): array
