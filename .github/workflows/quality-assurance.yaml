@@ -11,6 +11,10 @@ jobs:
     qa:
         runs-on: ubuntu-latest
 
+        strategy:
+            matrix:
+                php-version: ['8.2', '8.4']
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -18,7 +22,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.2'
+                  php-version: ${{ matrix.php-version }}
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
