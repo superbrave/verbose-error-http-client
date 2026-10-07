@@ -34,7 +34,7 @@ jobs:
         run: composer test
 
       - name: Check PHPCS
-        run: composer check-code-style
+        run: composer check:code-style
 
       - name: Check PHPStan
-        run: composer check-phpstan
+        run: composer check:phpstan
