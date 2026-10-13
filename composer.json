@@ -10,17 +10,17 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "symfony/http-client-contracts": "^3.4",
-        "symfony/dependency-injection": "^6.3|^7.0",
-        "symfony/framework-bundle": "^6.3|^7.0"
+        "symfony/dependency-injection": "^6.3|^7.0|^8.0",
+        "symfony/framework-bundle": "^6.3|^7.0|^8.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "friendsofphp/php-cs-fixer": "^3.54",
-        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan": "^2.2",
         "phpunit/phpunit": "^9.6",
-        "symfony/http-client": "^6.3|^7.0"
+        "symfony/http-client": "^6.3|^7.0|^8.0"
     },
     "suggest": {
         "symfony/http-client": "This package requires an actual Symfony HTTP client implementation to decorate."
@@ -42,9 +42,9 @@
         "sort-packages": true
     },
     "scripts": {
-        "check-phpstan": "vendor/bin/phpstan analyse",
-        "check-code-style": "vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run -v",
-        "fix-code-style": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "check:phpstan": "vendor/bin/phpstan analyse",
+        "check:code-style": "vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run -v",
+        "fix:code-style": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
         "test": "phpunit"
     }
 }

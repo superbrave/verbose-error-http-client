@@ -21,6 +21,9 @@ class VerboseErrorHttpClient implements HttpClientInterface
     {
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function request(string $method, string $url, array $options = []): ResponseInterface
     {
         $response = $this->client->request($method, $url, $options);
@@ -29,7 +32,7 @@ class VerboseErrorHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param VerboseErrorResponse|iterable $responses
+     * @param VerboseErrorResponse|iterable<array-key, VerboseErrorResponse> $responses
      */
     public function stream(ResponseInterface|iterable $responses, ?float $timeout = null): ResponseStreamInterface
     {
@@ -40,6 +43,9 @@ class VerboseErrorHttpClient implements HttpClientInterface
         return new ResponseStream(VerboseErrorResponse::stream($this->client, $responses, $timeout));
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function withOptions(array $options): static
     {
         $clone = clone $this;

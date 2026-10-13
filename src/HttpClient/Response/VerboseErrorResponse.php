@@ -62,6 +62,9 @@ readonly class VerboseErrorResponse implements ResponseInterface
         }
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function toArray(bool $throw = true): array
     {
         try {
